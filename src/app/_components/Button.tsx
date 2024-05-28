@@ -1,5 +1,7 @@
 import { trpc } from "@/server/trpc/client";
 import { BuyHealthInput } from "@/server/trpc/routers/player/zod";
+import toast from "react-hot-toast";
+import Alert from "./Alert";
 
 const Button = ({ hp, gold }: BuyHealthInput) => {
   const utils = trpc.useUtils();
@@ -11,7 +13,9 @@ const Button = ({ hp, gold }: BuyHealthInput) => {
 
   const handleClick = () => {
     if (gold < 10) {
-      alert("You do not have enough gold to buy health!");
+      toast.custom( <Alert>Not enough gold to buy health!</Alert>
+      );
+      return;
     } else {
       mutate({
         hp: hp + 30,
