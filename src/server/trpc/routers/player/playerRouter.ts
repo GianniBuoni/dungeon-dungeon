@@ -13,6 +13,7 @@ export const playerRouter = router({
         hp: player.hp,
         gold: player.gold,
         weapon: weapons.name,
+        weaponId: weapons.id,
       })
       .from(player)
       .innerJoin(weapons, eq(player.weapon, weapons.id));

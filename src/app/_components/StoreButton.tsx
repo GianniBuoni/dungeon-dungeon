@@ -3,13 +3,14 @@ import toast from "react-hot-toast";
 import Alert from "./Alert";
 import { ReactNode } from "react";
 import { UpdateInput } from "@/server/trpc/routers/player/zod";
+import { myButton } from "@/styles/classNames";
 
 interface Props {
   input: UpdateInput;
   currentGold: number;
   reqGold: number;
   children: ReactNode;
-  alertMessage: string;
+  alertMessage?: string;
 }
 
 const StoreButton = ({
@@ -24,6 +25,7 @@ const StoreButton = ({
     onSettled: async () => {
       await utils.player.stats.invalidate();
       await utils.weapon.toBuy.invalidate();
+      await utils.weapon.toSell.invalidate();
     },
   });
 
@@ -37,7 +39,7 @@ const StoreButton = ({
   };
 
   return (
-    <button className="btn btn-primary rounded-md grow" onClick={handleClick}>
+    <button className={myButton} onClick={handleClick}>
       {children}
     </button>
   );

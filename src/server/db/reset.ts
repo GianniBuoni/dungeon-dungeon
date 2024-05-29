@@ -16,7 +16,6 @@ const reset = async () => {
   await db
     .update(weapons)
     .set({
-      inInventory: true,
       inStore: false,
     })
     .where(eq(weapons.id, 1));
@@ -25,21 +24,18 @@ const reset = async () => {
     .update(weapons)
     .set({
       inStore: true,
-      inInventory: false,
     })
     .where(eq(weapons.id, 2));
   await db
     .update(weapons)
     .set({
       inStore: true,
-      inInventory: false,
     })
     .where(eq(weapons.id, 3));
   await db
     .update(weapons)
     .set({
       inStore: true,
-      inInventory: false,
     })
     .where(eq(weapons.id, 4));
 };

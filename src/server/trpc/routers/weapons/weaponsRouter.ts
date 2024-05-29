@@ -1,7 +1,8 @@
-import { player, weapons } from "@/server/db/schema";
+import { weapons } from "@/server/db/schema";
 import { procedure, router } from "../../trpc";
 import { db } from "@/server/db";
-import { eq, ne } from "drizzle-orm";
+import { and, eq, ne } from "drizzle-orm";
+import { z } from "zod";
 
 export const weaponRouter = router({
   toBuy: procedure.query(async () => {
@@ -12,11 +13,11 @@ export const weaponRouter = router({
       .limit(1);
     return res;
   }),
-  toSell: procedure.query(async () => {
+  toSell: procedure.input(z.number()).query(async (opts) => {
     const res = await db
       .select()
       .from(weapons)
-      .where(eq(weapons.inStore, false) && ne(weapons.id, player.weapon))
+      .where(and(eq(weapons.inStore, false), ne(weapons.id, opts.input)))
       .limit(1);
     return res;
   }),
