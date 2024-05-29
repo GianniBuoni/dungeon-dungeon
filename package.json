@@ -10,7 +10,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx ./src/server/db/seed.ts",
-    "db:reset": "drizzle-kit push && tsx ./src/server/db/seed.ts"
+    "db:reset": "tsx ./src/server/db/reset.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.6.0",

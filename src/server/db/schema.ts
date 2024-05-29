@@ -5,15 +5,15 @@ export const player = sqliteTable("player", {
   xp: integer("xp").notNull().default(0),
   hp: integer("hp").notNull().default(100),
   gold: integer("gold").notNull().default(50),
-  weapon: integer("weapon").notNull().default(1).references(()=>weapons.id),
+  weapon: integer("weapon")
+    .notNull()
+    .default(1)
+    .references(() => weapons.id),
 });
 
 export const weapons = sqliteTable("weapons", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name", { length: 50 }).notNull(),
   power: integer("power").notNull(),
-  inInventory: integer("in_inventory", { mode: "boolean" })
-    .notNull()
-    .default(false),
   inStore: integer("in_store", { mode: "boolean" }).notNull().default(true),
 });

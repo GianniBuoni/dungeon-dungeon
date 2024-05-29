@@ -18,14 +18,6 @@ export const playerRouter = router({
       .innerJoin(weapons, eq(player.weapon, weapons.id));
     return res[0];
   }),
-  nextWeapon: procedure.query(async () => {
-    const res = await db
-      .select()
-      .from(weapons)
-      .where(eq(weapons.inStore, true))
-      .limit(1);
-    return res[0];
-  }),
   update: procedure.input(updateInput).mutation(async (opts) => {
     await db
       .update(player)
@@ -39,7 +31,6 @@ export const playerRouter = router({
         .update(weapons)
         .set({
           inStore: opts.input.inStore,
-          inInventory: opts.input.inInventory,
         })
         .where(eq(weapons.id, opts.input.nextWeaponId));
     }

@@ -6,7 +6,6 @@ import { caller } from "@/server/trpc";
 import { trpc } from "@/server/trpc/client";
 
 export type Player = Awaited<ReturnType<typeof caller.player.stats>>;
-
 interface Props {
   initStats: Player;
 }
@@ -17,7 +16,10 @@ const ActionsHub = ({ initStats }: Props) => {
     refetchOnMount: false,
     refetchOnReconnect: false,
   });
-  const getNextWeapon = trpc.player.nextWeapon.useQuery();
+  const getNextWeapon = trpc.weapon.toBuy.useQuery(undefined, {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+  });
   const nextWeapon = getNextWeapon.data;
   const stats = getStatsData.data;
   return (
@@ -32,20 +34,23 @@ const ActionsHub = ({ initStats }: Props) => {
         >
           Buy Health (10 gold)
         </StoreButton>
-        {nextWeapon && (
+        {nextWeapon?.length ? (
           <StoreButton
             input={{
               gold: stats.gold - 30,
-              nextWeaponId: nextWeapon?.id,
+              nextWeaponId: nextWeapon[0].id,
               inStore: false,
-              inInventory: true,
             }}
             currentGold={stats.gold}
             reqGold={30}
             alertMessage="You don't have enough gold to buy a weapon!"
           >
-            Buy a weapon (30 gold)
+            <span className="capitalize">Buy {nextWeapon[0].name}</span>
           </StoreButton>
+        ) : (
+          <button className="btn btn-disabled rounded-md grow" disabled>
+            No more weapons to buy!
+          </button>
         )}
       </div>
     </>

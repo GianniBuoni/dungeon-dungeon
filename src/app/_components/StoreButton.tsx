@@ -21,9 +21,9 @@ const StoreButton = ({
 }: Props) => {
   const utils = trpc.useUtils();
   const { mutate } = trpc.player.update.useMutation({
-    onSuccess: async () => {
+    onSettled: async () => {
       await utils.player.stats.invalidate();
-      await utils.player.nextWeapon.invalidate();
+      await utils.weapon.toBuy.invalidate();
     },
   });
 

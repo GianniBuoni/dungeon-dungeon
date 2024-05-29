@@ -5,7 +5,6 @@ export const updateInput = z.object({
   gold: z.number(),
   nextWeaponId: z.optional(z.number()),
   inStore: z.optional(z.boolean()),
-  inInventory: z.optional(z.boolean()),
 });
 
 export type UpdateInput = z.infer<typeof updateInput>;
