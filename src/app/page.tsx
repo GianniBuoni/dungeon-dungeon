@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 const HomePage = async () => {
   const initStats = await caller.player.stats();
   return (
-    <div className={`${myCard} border-slate-600 space-y-2`}>
+    <div className={`${myCard} border-slate-600 space-y-2 w-7/12`}>
       <ActionsHub initStats={initStats} />
       <Toaster />
     </div>

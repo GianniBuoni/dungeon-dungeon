@@ -1,8 +1,11 @@
 import { z } from "zod";
 
-export const buyHealthInput = z.object({
-  hp: z.number(),
+export const updateInput = z.object({
+  hp: z.optional(z.number()),
   gold: z.number(),
+  nextWeaponId: z.optional(z.number()),
+  inStore: z.optional(z.boolean()),
+  inInventory: z.optional(z.boolean()),
 });
 
-export type BuyHealthInput = z.infer<typeof buyHealthInput>;
+export type UpdateInput = z.infer<typeof updateInput>;
