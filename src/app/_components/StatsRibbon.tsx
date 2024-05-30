@@ -1,12 +1,15 @@
-import { caller } from "@/server/trpc";
+"use client";
 import { capName } from "../_lib/utils";
 import { myCard } from "@/styles/classNames";
+import { Player } from "@/server/trpc/routers/player/zod";
+import { getStats } from "../_lib/getStats";
 
 interface Props {
-  stats: Awaited<ReturnType<typeof caller.player.stats>>;
+  initStats: Player;
 }
 
-const StatsRibbon = ({ stats }: Props) => {
+const StatsRibbon = ({ initStats }: Props) => {
+  const stats = getStats(initStats);
   const statsMap: { label: string; value: number | string }[] = [
     { label: "XP", value: stats.xp },
     { label: "HP", value: stats.hp },

@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { caller } from "@/server/trpc";
+
+export type Player = Awaited<ReturnType<typeof caller.player.stats>>;
 
 export const updateInput = z.object({
   hp: z.optional(z.number()),
