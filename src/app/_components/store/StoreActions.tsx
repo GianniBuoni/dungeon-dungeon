@@ -1,15 +1,15 @@
 "use client";
+import { getStats } from "@/app/_lib/getStats";
 import { trpc } from "@/server/trpc/client";
 import { Player } from "@/server/trpc/routers/player/zod";
 import { myButton } from "@/styles/classNames";
 import StoreButton from "./StoreButton";
-import { getStats } from "../_lib/getStats";
 
 interface Props {
   initStats: Player;
 }
 
-const Store = ({ initStats }: Props) => {
+const StoreAction = ({ initStats }: Props) => {
   const stats = getStats(initStats);
 
   const getNextWeapon = trpc.weapon.toBuy.useQuery(undefined, {
@@ -71,4 +71,4 @@ const Store = ({ initStats }: Props) => {
   );
 };
 
-export default Store;
+export default StoreAction;

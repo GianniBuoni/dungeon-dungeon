@@ -1,9 +1,9 @@
 import { trpc } from "@/server/trpc/client";
 import toast from "react-hot-toast";
-import Alert from "./Alert";
 import { ReactNode } from "react";
 import { UpdateInput } from "@/server/trpc/routers/player/zod";
 import { myButton } from "@/styles/classNames";
+import Alert from "../Alert";
 
 interface Props {
   input: UpdateInput;
